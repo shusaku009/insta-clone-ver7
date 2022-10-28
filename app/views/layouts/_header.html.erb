@@ -30,12 +30,43 @@
     <div class="d-flex align-items-center">
       <%= link_to 'Login', login_path, class: 'btn btn-link px-3 me-2' %>
       <%= link_to 'Sign up for free', signup_path, class: 'btn btn-primary me-3' %>
-      <a
-        class="btn btn-dark px-3"
-        href="https://github.com/mdbootstrap/mdb-ui-kit"
-        role="button"><i class="fab fa-github"></i></a>
+      <!-- Avatar -->
+      <div class="dropdown">
+        <a
+        class="dropdown-toggle d-flex align-items-center hidden-arrow"
+        href="#"
+        id="navbarDropdownMenuAvatar"
+        role="button"
+        data-mdb-toggle="dropdown"
+        aria-expanded="false">
+        <img
+        src="http://mdcdn.b-cdn.net/img/new/avatars/2.webp"
+        class="rounded-circle"
+        height="25"
+        alt="Black and White Portrait of a Man"
+        loading="lazy">
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuAvatar">
+          <li>
+            <a class="dropdown-item" href="#">My profile</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Settings</a>
+          </li>
+          <li>
+            <%= link_to 'ログアウト',
+                        logout_path,
+                        class: 'dropdown-item',
+                        data: { turbo_method: :delete, turbo_confirm: 'ログアウトします' } %>
+          </li>
+        </ul>
+      </div>
       </div>
     </div>
     <!-- Collapsible wrapper -->
   </div>
+  <!-- Container wrapper -->
 </nav>
+<!-- Navbar -->

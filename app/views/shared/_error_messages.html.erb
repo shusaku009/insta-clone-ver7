@@ -1,6 +1,7 @@
-<% flash.each do |message_type, message| %>
-  <div class="alert-<%= message_type %> alert alert-dismissible fade show mb-3">
-    <%= message %>
-    <button type="button" class="btn-close" data-mdb-dismissible="alert" aria-label="Close"></button>
-  </div>
+<% if object.errors.any? %>
+  <ul class="alert alert-danger">
+    <% object.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
 <% end %>
