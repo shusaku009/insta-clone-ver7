@@ -14,6 +14,6 @@ class UserSessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to login_path, success: 'ログアウトしました', status: :see_other#303コードステータスが別の場所にある
+    redirect_to login_path, success: 'ログアウトしました', status: :see_other
   end
 end
