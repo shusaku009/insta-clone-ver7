@@ -1,5 +1,4 @@
 require_relative "boot"
-
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
@@ -13,16 +12,13 @@ require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
 # require "rails/test_unit/railtie"
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
 module InstaCloneVer7
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -33,5 +29,16 @@ module InstaCloneVer7
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.generators do |g|
+      g.helper false
+    end
+
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+
+    config.i18n.default_locale = :ja
   end
 end
