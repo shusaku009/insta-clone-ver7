@@ -35,6 +35,10 @@
           <%= link_to 'サインアップ', signup_path, class: 'btn btn-primary me-3' %>
         <% end %>
         <% if logged_in? %>
+          <%= link_to new_post_path, class: 'btn btn-primary btn-sm me-3' do %>
+            <i class="fas fa-camera me-2"></i>
+            投稿
+          <% end %>
           <!-- Avatar -->
           <div id="header-avatar-dropdown" class="dropdown">
             <a
