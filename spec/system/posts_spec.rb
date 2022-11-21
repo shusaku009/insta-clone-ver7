@@ -43,7 +43,7 @@ RSpec.describe '投稿', type: :system do
 end
 
 describe 'ページネーション' do
-  let!(:post) { create(:post, created_at: Time.current.yestaday) }
+  let!(:post) { create(:post, created_at: Time.current.yesterday) }
   before do
     create_list(:post, 15)
   end
