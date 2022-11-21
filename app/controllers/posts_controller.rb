@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
   end
-
+  
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
@@ -16,11 +16,11 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
+  
   def edit
     @post = current_user.posts.find(params[:id])
   end
-
+  
   def update
     @post = current_user.posts.find(params[:id])
     if @post.update(post_params)
@@ -32,6 +32,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments
+    @comment = Comment.new
   end
 
   def destroy
@@ -39,9 +41,9 @@ class PostsController < ApplicationController
     @post.destroy!
     redirect_to posts_path, success: '投稿を削除しました', status: :see_other
   end
-
+  
   private
-
+  
   def post_params
     params.require(:post).permit(:body, images: [])
   end
