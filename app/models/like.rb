@@ -1,9 +1,8 @@
 # == Schema Information
 #
-# Table name: comments
+# Table name: likes
 #
 #  id         :bigint           not null, primary key
-#  body       :text(65535)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  post_id    :bigint           not null
@@ -11,16 +10,18 @@
 #
 # Indexes
 #
-#  index_comments_on_post_id  (post_id)
-#  index_comments_on_user_id  (user_id)
+#  index_likes_on_post_id              (post_id)
+#  index_likes_on_post_id_and_user_id  (post_id,user_id) UNIQUE
+#  index_likes_on_user_id              (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (post_id => posts.id)
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+class Like < ApplicationRecord
+  belongs_to :post
+  belongs_to :user
 
-RSpec.describe Comment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  validates :user_id, uniqueness: { scope: :post_id }
 end
