@@ -2,11 +2,12 @@ class PostsController < ApplicationController
   before_action :require_login, only: %i[new create edit update destroy]
 
   def index
-    @pagy, @posts = if logged_in?
-                      pagy(current_user.feed.with_attached_images.includes(:user).order(created_at: :desc))
-                    else
-                      pagy(Post.with_attached_images.includes(:user).order(created_at: :desc))
-                    end
+    @q = if logged_in?
+           current_user.feed.ransack(params[:q])
+         else
+           Post.ransack(params[:q])
+         end
+    @pagy, @posts = pagy(@q.result(distinct: true).with_attached_images.includes(:user).order(created_at: :desc))
   end
 
   def new
