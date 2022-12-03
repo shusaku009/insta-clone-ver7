@@ -22,3 +22,7 @@
   height: 400px;
   object-fit: cover;
 }
+
+.pagenation {
+  justify-content: center;
+}

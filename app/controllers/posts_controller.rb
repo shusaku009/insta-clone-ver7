@@ -1,13 +1,18 @@
 class PostsController < ApplicationController
   before_action :require_login, only: %i[new create edit update destroy]
+
   def index
-    @pagy, @posts = pagy(Post.with_attached_images.includes(:user).order(created_at: :desc))
+    @pagy, @posts = if logged_in?
+                      pagy(current_user.feed.with_attached_images.includes(:user).order(created_at: :desc))
+                    else
+                      pagy(Post.with_attached_images.includes(:user).order(created_at: :desc))
+                    end
   end
 
   def new
     @post = Post.new
   end
-  
+
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
@@ -16,11 +21,11 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  
+
   def edit
     @post = current_user.posts.find(params[:id])
   end
-  
+
   def update
     @post = current_user.posts.find(params[:id])
     if @post.update(post_params)
@@ -41,9 +46,9 @@ class PostsController < ApplicationController
     @post.destroy!
     redirect_to posts_path, success: '投稿を削除しました', status: :see_other
   end
-  
+
   private
-  
+
   def post_params
     params.require(:post).permit(:body, images: [])
   end
