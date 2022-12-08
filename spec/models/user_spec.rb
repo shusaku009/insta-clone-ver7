@@ -36,7 +36,7 @@ RSpec.describe User, type: :model do
       expect { user.unlike(post) }.to change { Like.count }.by(-1)
     end
   end
-
+  
   describe '#like?' do
     let!(:user) { create(:user) }
     let!(:post) { create(:post) }
