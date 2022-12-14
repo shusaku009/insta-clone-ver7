@@ -1,4 +1,4 @@
-class Mypage::AccountsController < ApplicationController
+class Mypage::AccountsController < Mypage::BaseController
   def edit
     @user = User.find(current_user.id)
   end
