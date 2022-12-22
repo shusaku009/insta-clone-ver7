@@ -12,7 +12,7 @@ require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
   describe '#notify' do
-    let!(:notificaiton) { create(:notification) }
+    let!(:notification) { create(:notification) }
 
     context '引数が単一の場合' do
       let!(:user) { create(:user) }
