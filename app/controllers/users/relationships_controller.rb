@@ -4,6 +4,7 @@ class Users::RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     current_user.follow(@user)
+    create_notifications_about_follow(@user)
   end
 
   def destroy
@@ -14,7 +15,7 @@ class Users::RelationshipsController < ApplicationController
   private
 
   def create_notifications_about_follow(user)
-    notification = Notification.create!(title: "#{current_user.user_name}さんにフォローされました", url: user_url(current_user))
+    notification = Notification.create!(title: "#{current_user.username}さんにフォローされました", url: user_url(current_user))
     notification.notify(user)
   end
 end
