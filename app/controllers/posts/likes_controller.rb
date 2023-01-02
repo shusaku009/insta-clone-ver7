@@ -3,6 +3,7 @@ class Posts::LikesController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
+    current_user.like(@post)
     # rubocop:disable Style/IfUnlessModifier, Style/GuardClause
     if current_user.like(@post)
       create_notifications_about_like(@post)
