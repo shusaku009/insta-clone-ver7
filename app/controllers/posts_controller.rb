@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :require_login, only: %i[new create edit update destroy]
-  
+
   def index
     @q = if logged_in?
            current_user.feed.ransack(params[:q])
@@ -9,24 +9,24 @@ class PostsController < ApplicationController
          end
     @pagy, @posts = pagy(@q.result(distinct: true)
          .with_attached_images.includes(user: { avatar_attachment: :blob }).order(created_at: :desc))
-    end
+  end
 
-    def new
-      @post = Post.new
-    end
+  def new
+    @post = Post.new
+  end
 
-    def create
-      @post = current_user.posts.build(post_params)
-      if @post.save
-        redirect_to post_path(@post), success: '投稿しました'
-      else
-        render :new, status: :unprocessable_entity
-      end
+  def create
+    @post = current_user.posts.build(post_params)
+    if @post.save
+      redirect_to post_path(@post), success: '投稿しました'
+    else
+      render :new, status: :unprocessable_entity
     end
+  end
 
-    def edit
-      @post = current_user.posts.find(params[:id])
-    end
+  def edit
+    @post = current_user.posts.find(params[:id])
+  end
 
   def update
     @post = current_user.posts.find(params[:id])
@@ -50,7 +50,7 @@ class PostsController < ApplicationController
   end
 
   private
-  
+
   def post_params
     params.require(:post).permit(:body, images: [])
   end
