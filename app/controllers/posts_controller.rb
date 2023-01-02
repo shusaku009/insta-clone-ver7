@@ -8,7 +8,7 @@ class PostsController < ApplicationController
            Post.ransack(params[:q])
          end
     @pagy, @posts = pagy(@q.result(distinct: true)
-                            .with_attached_images.includes(user: { avatar_attachment: :blob }).order(created_at: :desc))
+         .with_attached_images.includes(user: { avatar_attachment: :blob }).order(created_at: :desc))
   end
 
   def new
