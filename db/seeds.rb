@@ -7,3 +7,4 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require './db/seeds/users'
 require './db/seeds/posts'
+require './db/seeds/notification_timings'
