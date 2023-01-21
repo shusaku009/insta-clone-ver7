@@ -21,7 +21,7 @@
 #
 class UserNotificationTiming < ApplicationRecord
   belongs_to :user
-  belongs_to :notification_timings
+  belongs_to :notification_timing
 
   validates :user_id, uniqueness: { scope: :notification_timing_id }
   # Ex:- scope :active, -> {where(:active => true)}}
