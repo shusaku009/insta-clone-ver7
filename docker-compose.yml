@@ -11,10 +11,13 @@ services:
     depends_on:
       - db
       - chrome
+      - redis
+      - sidekiq
     stdin_open: true
     tty: true
     environment:
       SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
+      REDIS_URL: redis://redis:6379
   db:
     image: mysql:5.7.33
     environment:
@@ -27,7 +30,24 @@ services:
     image: selenium/standalone-chrome-debug:latest
     ports:
       - 4444:4444
+  sidekiq:
+    build: .
+    environment:
+      REDIS_URL: redis://redis:6379
+    volumes:
+      - .:/insta_clone:cached
+      - bundle:/usr/local/bundle
+    depends_on:
+      - db
+      - redis
+    command: bundle exec sidekiq -C config/sidekiq.yml
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
 volumes:
   bundle:
   mysql_data:
-
+  redis:
