@@ -52,6 +52,7 @@ gem 'image_processing', '~> 1.2'
 gem 'sorcery'
 
 # 国際化
+gem 'enum_help'
 gem 'rails-i18n'
 
 # ActiveStorage
@@ -74,6 +75,9 @@ gem 'config'
 
 # ワーカー
 gem 'sidekiq'
+
+# seo
+gem 'meta-tags'
 
 group :development, :test do
   gem 'annotate'
